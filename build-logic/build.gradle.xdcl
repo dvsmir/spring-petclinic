@@ -1,0 +1,14 @@
+// The whole build setup of the plugin project. The Gradle plugins the reactions apply must be on
+// its runtime classpath; the versions are those the application build applies.
+xdclGradlePlugin {
+  dependencies {
+    implementation [
+      "org.springframework.boot:spring-boot-gradle-plugin:4.1.0",
+      "io.spring.gradle:dependency-management-plugin:1.1.7",
+      "org.graalvm.buildtools:native-gradle-plugin:1.1.2",
+      "org.cyclonedx:cyclonedx-gradle-plugin:3.2.4",
+      "io.spring.javaformat:spring-javaformat-gradle-plugin:0.0.47",
+      "io.spring.nohttp:nohttp-gradle:0.0.11",
+    ]
+  }
+}

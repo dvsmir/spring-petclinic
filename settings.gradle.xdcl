@@ -1,0 +1,17 @@
+// Spring PetClinic, declaratively. The build logic (an included build) contributes the
+// `springBootApplication` project type that build.gradle.xdcl configures.
+settings {
+  rootProject {
+    name "spring-petclinic"
+  }
+  pluginManagement {
+    includedBuilds ["build-logic"]
+  }
+  plugins [
+    { id "org.springframework.samples.petclinic.springboot" }
+  ]
+  // Repositories are declared once here, never per project.
+  dependencyResolutionManagement {
+    repositories [:mavenCentral]
+  }
+}

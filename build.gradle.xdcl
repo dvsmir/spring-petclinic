@@ -1,0 +1,58 @@
+// The Spring PetClinic application. The rootname `springBootApplication` comes from the build-logic
+// plugin; every nested block below is one of its extensions. Drop a block to drop that tooling.
+springBootApplication {
+  group "org.springframework.samples"
+  version "4.0.0-SNAPSHOT"
+  // javaVersion 17 is the plugin's default (a Java 17 toolchain).
+
+  // Versions are omitted where the Spring Boot BOM manages them.
+  dependencies {
+    implementation [
+      "org.springframework.boot:spring-boot-starter-cache",
+      "org.springframework.boot:spring-boot-starter-data-jpa",
+      "org.springframework.boot:spring-boot-starter-thymeleaf",
+      "org.springframework.boot:spring-boot-starter-webmvc",
+      "org.springframework.boot:spring-boot-starter-validation",
+      "javax.cache:cache-api",
+      "jakarta.xml.bind:jakarta.xml.bind-api",
+    ]
+    runtimeOnly [
+      "org.springframework.boot:spring-boot-starter-actuator",
+      "org.webjars:webjars-locator-lite:1.1.3",
+      "org.webjars.npm:bootstrap:5.3.8",
+      "org.webjars.npm:font-awesome:4.7.0",
+      "com.github.ben-manes.caffeine:caffeine",
+      "com.h2database:h2",
+      "com.mysql:mysql-connector-j",
+      "org.postgresql:postgresql",
+    ]
+    developmentOnly [
+      "org.springframework.boot:spring-boot-devtools",
+    ]
+    testImplementation [
+      "org.springframework.boot:spring-boot-starter-data-jpa-test",
+      "org.springframework.boot:spring-boot-starter-restclient-test",
+      "org.springframework.boot:spring-boot-starter-webmvc-test",
+      "org.springframework.boot:spring-boot-testcontainers",
+      "org.springframework.boot:spring-boot-docker-compose",
+      "org.testcontainers:testcontainers-junit-jupiter",
+      "org.testcontainers:testcontainers-mysql",
+    ]
+  }
+
+  // Checkstyle with the Spring Java Format rules (checkstyle 12.3.1, spring-javaformat 0.0.47).
+  checkstyle {
+  }
+  // Spring Java Format; the Spring AOT source sets are left unformatted, as before.
+  springJavaFormat {
+  }
+  // nohttp: fail on plain-http URLs in sources.
+  nohttp {
+  }
+  // GraalVM native image support.
+  nativeImage {
+  }
+  // CycloneDX software bill of materials; the plugin leaves out the test configurations.
+  sbom {
+  }
+}

@@ -1,0 +1,18 @@
+// Plugin descriptor of the build logic; the filename is the plugin id. Validated by xdclCodegen
+// when build-logic builds. The generated carrier binds the reactions and ships the defaults.
+plugin {
+  displayName "Spring PetClinic Spring Boot application"
+  description "Declarative Spring Boot application project type for the Spring PetClinic build."
+  reactions [
+    :org.springframework.samples.petclinic.gradle.SpringBootApplicationReaction,
+    :org.springframework.samples.petclinic.gradle.CheckstyleReaction,
+    :org.springframework.samples.petclinic.gradle.SpringJavaFormatReaction,
+    :org.springframework.samples.petclinic.gradle.NohttpReaction,
+    :org.springframework.samples.petclinic.gradle.NativeImageReaction,
+    :org.springframework.samples.petclinic.gradle.SbomReaction,
+  ]
+  // Plugin-stratum defaults, honoured by every build that applies this plugin.
+  defaults [
+    sbom { skipConfigurations [".*[Tt]est.*"] }
+  ]
+}

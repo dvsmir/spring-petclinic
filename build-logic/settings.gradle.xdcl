@@ -1,0 +1,15 @@
+// Build logic for the Spring PetClinic build: one declarative Gradle plugin whose reactions apply
+// the Spring Boot, dependency-management and code-quality plugins to the application project.
+// `plugin-development-ecosystem` is a built-in of the XDCL-enabled Gradle distribution (bare id).
+settings {
+  rootProject {
+    name "build-logic"
+  }
+  plugins [
+    { id "plugin-development-ecosystem" }
+  ]
+  // The Gradle plugins the reactions apply are ordinary Maven artifacts (see build.gradle.xdcl).
+  dependencyResolutionManagement {
+    repositories [:gradlePluginPortal, :mavenCentral]
+  }
+}

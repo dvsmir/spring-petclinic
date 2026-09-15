@@ -1,0 +1,87 @@
+// Schema of the Spring PetClinic build logic: the project type the root build.gradle.xdcl
+// configures, and the code-quality and packaging extensions it can activate.
+package org.springframework.samples.petclinic.gradle
+
+/// Dependency notations (`group:name` or `group:name:version`), one list per Gradle configuration.
+/// A version is omitted wherever the Spring Boot BOM manages it.
+record Dependencies {
+  implementation: [String]?
+  compileOnly: [String]?
+  runtimeOnly: [String]?
+  /// Spring Boot's `developmentOnly` configuration: on the classpath of `bootRun`, never packaged.
+  developmentOnly: [String]?
+  testImplementation: [String]?
+  testRuntimeOnly: [String]?
+}
+
+/// A project compiled and tested with a Java toolchain. The extensions below splice into anything
+/// carrying it.
+trait JavaProject {
+  /// Language version of the Java toolchain (`java.toolchain.languageVersion`).
+  javaVersion: Int = 17
+}
+
+/// Checkstyle (`checkstyle` plugin) with the Spring Java Format rule set on the tool classpath.
+extension Checkstyle for JavaProject {
+  checkstyle {
+    /// Version of `com.puppycrawl.tools:checkstyle`.
+    toolVersion: String = "12.3.1"
+    /// Version of `io.spring.javaformat:spring-javaformat-checkstyle`.
+    springJavaformatVersion: String = "0.0.47"
+    /// Configuration directory, relative to the project directory.
+    configDirectory: String = "src/checkstyle"
+    /// Configuration file, relative to the project directory.
+    configFile: String = "src/checkstyle/nohttp-checkstyle.xml"
+  }
+}
+
+/// Spring Java Format (`io.spring.javaformat`): `format*` and `checkFormat*` tasks per source set.
+/// When [extension:checkstyle] or [extension:nohttp] is active too, formatting runs their checks
+/// first.
+extension SpringJavaFormat for JavaProject {
+  springJavaFormat {
+    /// Also format and check the Spring AOT source sets, whose code is generated. Off by default:
+    /// their tasks are disabled and excluded from every invocation, so `check` never triggers AOT
+    /// processing just to inspect generated sources.
+    formatAot: Bool = false
+  }
+}
+
+/// The nohttp check (`io.spring.nohttp`): fails the build on `http://` URLs in sources.
+extension Nohttp for JavaProject {
+  nohttp {
+    /// Checkstyle configuration directory of the `checkstyleNohttp` task, relative to the project.
+    configDirectory: String = "src/checkstyle"
+    /// Checkstyle configuration file of the `checkstyleNohttp` task, relative to the project.
+    configFile: String = "src/checkstyle/nohttp-checkstyle.xml"
+  }
+}
+
+/// GraalVM native image support (`org.graalvm.buildtools.native`).
+extension NativeImage for JavaProject {
+  nativeImage {
+  }
+}
+
+/// A CycloneDX software bill of materials (`org.cyclonedx.bom`) of the compiled application.
+extension Sbom for JavaProject {
+  sbom {
+    /// Regular expressions of the Gradle configurations left out of the BOM (`skipConfigs`).
+    /// The plugin defaults this to the test configurations.
+    skipConfigurations: [String]?
+  }
+}
+
+/// A Spring Boot application: the `java`, `org.springframework.boot` and
+/// `io.spring.dependency-management` plugins, the application's coordinates and its dependencies.
+/// Tests run on the JUnit platform.
+template SpringBootApplication with JavaProject {
+  springBootApplication {
+    /// Maven group of the application.
+    group: String
+    /// Version of the application.
+    version: String
+    /// Dependencies, by configuration.
+    dependencies: Dependencies?
+  }
+}
