@@ -1,8 +1,9 @@
-# Spring PetClinic Sample Application [![Build Status](https://github.com/spring-projects/spring-petclinic/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-projects/spring-petclinic/actions/workflows/maven-build.yml)[![Build Status](https://github.com/spring-projects/spring-petclinic/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/spring-projects/spring-petclinic/actions/workflows/gradle-build.yml)
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/spring-projects/spring-petclinic) [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=7517918)
+# Spring PetClinic Sample Application 
+[![Build Status](https://github.com/dvsmir/spring-petclinic/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/dvsmir/spring-petclinic/actions/workflows/gradle-build.yml)
 
 # Experimenetal xDCL build
+
+Requires IDE-side support for https://gradle.github.io/xdcl-starter-kit/
 
 ## Understanding the Spring Petclinic application with a few diagrams
 
@@ -15,20 +16,11 @@ See the presentation here:
 
 ## Run Petclinic locally
 
-Spring Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using [Maven](https://spring.io/guides/gs/maven/) or [Gradle](https://spring.io/guides/gs/gradle/).
+Spring Petclinic is a [Spring Boot](https://spring.io/guides/gs/spring-boot) application built using or [Gradle](https://spring.io/guides/gs/gradle/).
 Java 17 or later is required for the build, and the application can run with Java 17 or newer.
 
-You first need to clone the project locally:
+You first need to clone the project locally.
 
-```bash
-git clone https://github.com/spring-projects/spring-petclinic.git
-cd spring-petclinic
-```
-If you are using Maven, you can start the application on the command-line as follows:
-
-```bash
-./mvnw spring-boot:run
-```
 With Gradle, the command is as follows:
 
 ```bash
@@ -44,11 +36,8 @@ See below for more details.
 
 ## Building a Container
 
-There is no `Dockerfile` in this project. You can build a container image (if you have a docker daemon) using the Spring Boot build plugin:
+There is no `Dockerfile` in this project. You can build a container image (if you have a docker daemon) using the Spring Boot build plugin
 
-```bash
-./mvnw spring-boot:build-image
-```
 
 ## Running the Container Image
 
@@ -135,11 +124,11 @@ The following items should be installed in your system:
 
 1. Inside IntelliJ IDEA:
 
-    In the main menu, choose `File -> Open` and select the Petclinic [pom.xml](pom.xml). Click on the `Open` button.
+    In the main menu, choose `File -> Open` and select the Petclinic folder. Click on the `Open` button.
 
     - CSS files are generated from the Maven build. You can build them on the command line `./mvnw generate-resources` or right-click on the `spring-petclinic` project then `Maven -> Generates sources and Update Folders`.
 
-    - A run configuration named `PetClinicApplication` should have been created for you if you're using a recent Ultimate version. Otherwise, run the application by right-clicking on the `PetClinicApplication` main class and choosing `Run 'PetClinicApplication'`.
+    - A run configuration named `PetClinicApplication` should have been created for you. Otherwise, run the application by right-clicking on the `PetClinicApplication` main class and choosing `Run 'PetClinicApplication'`.
 
 1. Navigate to the Petclinic
 
